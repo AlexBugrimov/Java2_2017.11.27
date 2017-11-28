@@ -2,7 +2,7 @@ package pro.bugrim;
 
 import static java.lang.System.out;
 
-public class EntryPoint {
+public class MainOne {
 
     public static void main(String[] args) throws InterruptedException {
         SimpleThread thread1 = new SimpleThread();
