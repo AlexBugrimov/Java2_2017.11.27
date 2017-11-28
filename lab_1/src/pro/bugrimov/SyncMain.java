@@ -2,14 +2,14 @@ package pro.bugrimov;
 
 class Data {
     volatile int count = 0;
-    volatile static int countSt = 0;
+    volatile static int countStatic = 0;
 }
 
 class MyThread implements Runnable {
     private final Data obj;
 
-    MyThread(Data d) {
-        obj = d;
+    MyThread(Data data) {
+        obj = data;
         Thread thread = new Thread(this);
         thread.start();
         try {
@@ -27,7 +27,7 @@ class MyThread implements Runnable {
 
     private static void addStatic() {
         synchronized (Data.class) {
-            Data.countSt++;
+            Data.countStatic++;
         }
     }
 
@@ -46,11 +46,12 @@ class MyThread implements Runnable {
 public class SyncMain {
 
     public static void main(String[] args) throws Exception {
-        Data d = new Data();
-        MyThread t1 = new MyThread(d);
-        MyThread t2 = new MyThread(d);
+        Data data = new Data();
 
-        System.out.println(d.count);
-        System.out.println(Data.countSt);
+        new MyThread(data);
+        new MyThread(data);
+
+        System.out.println(data.count);
+        System.out.println(Data.countStatic);
     }
 }
