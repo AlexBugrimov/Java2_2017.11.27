@@ -19,7 +19,7 @@ public class Task {
 class ThreadOne implements Runnable {
 
     private Thread thread;
-    private Object monitor;
+    private final Object monitor;
 
     public ThreadOne(Object monitor) {
         this.monitor = monitor;
@@ -51,7 +51,7 @@ class ThreadOne implements Runnable {
                         Task.count++;
                     }
                     if (i < Task.lines - 1) {
-                        Thread.sleep(100);
+//                        Thread.sleep(1);
 
                         monitor.wait();
                     }
@@ -100,7 +100,7 @@ class ThreadTwo implements Runnable {
                         Task.count++;
                     }
                     if (i < Task.lines - 1) {
-                        Thread.sleep(100);
+//                        Thread.sleep(1);
 
 
                         monitor.wait();
@@ -149,8 +149,6 @@ class ThreadThree implements Runnable {
                         Task.count = 1;
                     }
                     if (i < Task.lines - 1) {
-                        Thread.sleep(100);
-
                         monitor.wait();
                     }
 
