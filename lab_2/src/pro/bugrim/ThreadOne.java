@@ -1,7 +1,7 @@
 package pro.bugrim;
 
 public class ThreadOne extends Thread {
-    private Object monitor;
+    private final Object monitor;
 
     public ThreadOne(Object monitor) {
         this.monitor = monitor;

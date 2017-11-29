@@ -2,7 +2,7 @@ package pro.bugrim;
 
 public class ThreadTwo implements Runnable {
     private Thread thread;
-    private Object monitor;
+    private final Object monitor;
 
     public Thread getThread() {
         return thread;
