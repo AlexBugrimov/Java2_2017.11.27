@@ -21,17 +21,17 @@ class ThreadOne implements Runnable {
     private Thread thread;
     private final Object monitor;
 
-    public ThreadOne(Object monitor) {
+    ThreadOne(Object monitor) {
         this.monitor = monitor;
         this.thread = new Thread(this);
     }
 
-    public ThreadOne start() {
+    ThreadOne start() {
         thread.start();
         return this;
     }
 
-    public void join() {
+    void join() {
         try {
             thread.join();
         } catch (InterruptedException e) {
@@ -42,25 +42,20 @@ class ThreadOne implements Runnable {
     @Override
     public void run() {
         try {
-            for (int i = 0; i < Task.lines; i++) {
+            if (Task.count == 1) {
                 synchronized (monitor) {
-
-                    while (Task.count == 1) {
+                    for (int i = 0; i < Task.lines; i++) {
                         System.out.print(1);
                         monitor.notifyAll();
-                        Task.count++;
+                        if (i < Task.lines - 1) {
+                            monitor.wait();
+                        }
                     }
-                    if (i < Task.lines - 1) {
-//                        Thread.sleep(1);
-
-                        monitor.wait();
-                    }
-
-
+                    Task.count++;
                 }
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("---1--- " + e.getMessage());
         }
     }
 }
@@ -68,19 +63,19 @@ class ThreadOne implements Runnable {
 class ThreadTwo implements Runnable {
 
     private Thread thread;
-    private Object monitor;
+    private final Object monitor;
 
-    public ThreadTwo(Object monitor) {
+    ThreadTwo(Object monitor) {
         this.monitor = monitor;
         this.thread = new Thread(this);
     }
 
-    public ThreadTwo start() {
+    ThreadTwo start() {
         thread.start();
         return this;
     }
 
-    public void join() {
+    void join() {
         try {
             thread.join();
         } catch (InterruptedException e) {
@@ -91,25 +86,21 @@ class ThreadTwo implements Runnable {
     @Override
     public void run() {
         try {
-            for (int i = 0; i < Task.lines; i++) {
+            if (Task.count == 2) {
 
                 synchronized (monitor) {
-                    while (Task.count == 2) {
+                    for (int i = 0; i < Task.lines; i++) {
                         System.out.print(" - " + 2);
                         monitor.notifyAll();
-                        Task.count++;
+                        if (i < Task.lines - 1) {
+                            monitor.wait();
+                        }
                     }
-                    if (i < Task.lines - 1) {
-//                        Thread.sleep(1);
-
-
-                        monitor.wait();
-                    }
-
+                    Task.count++;
                 }
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("---2---" + e.getMessage());
         }
     }
 }
@@ -117,19 +108,19 @@ class ThreadTwo implements Runnable {
 class ThreadThree implements Runnable {
 
     private Thread thread;
-    private Object monitor;
+    private final Object monitor;
 
-    public ThreadThree(Object monitor) {
+    ThreadThree(Object monitor) {
         this.monitor = monitor;
         this.thread = new Thread(this);
     }
 
-    public ThreadThree start() {
+    ThreadThree start() {
         thread.start();
         return this;
     }
 
-    public void join() {
+    void join() {
         try {
             thread.join();
         } catch (InterruptedException e) {
@@ -140,22 +131,21 @@ class ThreadThree implements Runnable {
     @Override
     public void run() {
         try {
-            for (int i = 0; i < Task.lines; i++) {
+            if (Task.count == 3) {
 
                 synchronized (monitor) {
-                    while (Task.count == 3) {
+                    for (int i = 0; i < Task.lines; i++) {
                         System.out.println(" - " + 3);
                         monitor.notifyAll();
-                        Task.count = 1;
+                        if (i < Task.lines - 1) {
+                            monitor.wait();
+                        }
                     }
-                    if (i < Task.lines - 1) {
-                        monitor.wait();
-                    }
-
+                    Task.count = 1;
                 }
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("---3---" + e.getMessage());
         }
     }
 }
