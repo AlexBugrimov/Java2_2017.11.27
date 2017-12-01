@@ -42,16 +42,16 @@ class ThreadOne implements Runnable {
     @Override
     public void run() {
         try {
-            if (Task.count == 1) {
+            while (Task.count == 1) {
                 synchronized (monitor) {
                     for (int i = 0; i < Task.lines; i++) {
-                        System.out.print(1);
+                       System.out.print(1);
+                       Task.count++;
                         monitor.notifyAll();
                         if (i < Task.lines - 1) {
                             monitor.wait();
                         }
                     }
-                    Task.count++;
                 }
             }
         } catch (InterruptedException e) {
@@ -91,12 +91,12 @@ class ThreadTwo implements Runnable {
                 synchronized (monitor) {
                     for (int i = 0; i < Task.lines; i++) {
                         System.out.print(" - " + 2);
+                        Task.count++;
                         monitor.notifyAll();
                         if (i < Task.lines - 1) {
                             monitor.wait();
                         }
                     }
-                    Task.count++;
                 }
             }
         } catch (InterruptedException e) {
@@ -136,12 +136,12 @@ class ThreadThree implements Runnable {
                 synchronized (monitor) {
                     for (int i = 0; i < Task.lines; i++) {
                         System.out.println(" - " + 3);
+                        Task.count = 1;
                         monitor.notifyAll();
                         if (i < Task.lines - 1) {
                             monitor.wait();
                         }
                     }
-                    Task.count = 1;
                 }
             }
         } catch (InterruptedException e) {
