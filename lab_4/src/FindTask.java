@@ -27,11 +27,19 @@ public class FindTask extends Task<Void> {
     private void findIn(File fi) {
         File[] files = fi.listFiles((f) -> f.getName().endsWith(end) || f.isDirectory());
 
+        if (isCancelled()) {
+            return;
+        }
 
-        if (files != null && items1.size() < SIZE)
-            for (File f : files)
-                if (f.isDirectory()) findIn(f);
-                else items1.add(f.getAbsolutePath());
+        if (files != null && list.size() < SIZE)
+            for (File file : files)
+                if (file.isDirectory()) {
+                    findIn(file);
+                } else {
+                    list.add(file.getAbsolutePath());
+                }
+
+        updateProgress(list.size(), SIZE);
     }
 
     @Override
@@ -57,6 +65,6 @@ public class FindTask extends Task<Void> {
     protected void succeeded() {
         items1.addAll(list);
         items1.add("finded " + items1.size() + "files");
-        // updateScene();
+        updateScene();
     }
 }
