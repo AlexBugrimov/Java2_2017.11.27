@@ -35,7 +35,7 @@ public class GridPaneController implements Initializable {
         String end = endId.getText();
 
         JavaFXApplication4.items.clear();
-        barId.setProgress(-1);
+//        barId.setProgress(-1);
 
         task = new FindTask(JavaFXApplication4.items, path, end);
         barId.progressProperty().bind(task.progressProperty());
