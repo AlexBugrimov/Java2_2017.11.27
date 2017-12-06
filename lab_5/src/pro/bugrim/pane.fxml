@@ -4,26 +4,68 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Text?>
-<GridPane fx:id="root"
-          xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          prefHeight="400.0" prefWidth="600.0"
-          alignment="CENTER" hgap="10" vgap="10">
-    <padding>
-        <javafx.geometry.Insets top="25" right="25" bottom="25" left="25"/>
-    </padding>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-    <Text text="Images" style="-fx-font: NORMAL 20 Tahoma;"
-          GridPane.columnIndex="0"
-          GridPane.rowIndex="0"
-          GridPane.columnSpan="2"/>
-    <Label text="Images path:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-    <TextField fx:id="pathId" text="C:\" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-    <Button text="Add" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
-    <ListView fx:id="listId" minWidth="500" GridPane.columnIndex="0" GridPane.rowIndex="2"
-              GridPane.columnSpan="2" GridPane.rowSpan="1">
-    </ListView>
-</GridPane>
+<AnchorPane maxHeight="Infinity" maxWidth="Infinity"
+            minHeight="400.0" minWidth="600.0"
+            prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/8.0.141"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="pro.bugrim.PaneController">
+    <BorderPane layoutX="200.0" layoutY="77.0"
+                minHeight="400.0" minWidth="600.0"
+                AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0"
+                AnchorPane.rightAnchor="0.0"
+                AnchorPane.topAnchor="0.0">
+        <top>
+            <MenuBar BorderPane.alignment="CENTER">
+                <Menu mnemonicParsing="false" text="Файл">
+                    <MenuItem mnemonicParsing="false" text="Выход" />
+                </Menu>
+                <Menu mnemonicParsing="false" text="База данных">
+                    <MenuItem mnemonicParsing="false" onAction="#createDatabase" text="Создать" />
+                </Menu>
+                <Menu mnemonicParsing="false" text="Помощь">
+                    <MenuItem mnemonicParsing="false" text="О программе..." />
+                </Menu>
+            </MenuBar>
+        </top>
+        <center>
+            <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="375.0" minWidth="600.0"
+                  spacing="20.0" BorderPane.alignment="TOP_CENTER">
+                <padding>
+                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                </padding>
+                <Label text="Загрузка картинок">
+                    <font>
+                        <Font size="23.0" />
+                    </font>
+                </Label>
+                <ListView fx:id="listView" maxHeight="Infinity" maxWidth="Infinity"
+                          minHeight="221.0" minWidth="560.0" prefHeight="200.0" prefWidth="560.0" VBox.vgrow="ALWAYS">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                    </padding>
+                </ListView>
+                <HBox alignment="CENTER_LEFT" maxHeight="40.0" minHeight="40.0" minWidth="560.0" prefHeight="40.0"
+                      spacing="20.0">
+                    <Button fx:id="buttonOpen" mnemonicParsing="false" onAction="#openImage" text="Открыть" />
+                    <Label fx:id="labelPath" maxWidth="Infinity" minWidth="300.0" HBox.hgrow="ALWAYS">
+                        <font>
+                            <Font size="14.0" />
+                        </font>
+                    </Label>
+                    <Button fx:id="buttonSaveToDB" mnemonicParsing="false" onAction="#saveInDb" text="Сохранить в БД" />
+                </HBox>
+            </VBox>
+        </center>
+    </BorderPane>
+</AnchorPane>

@@ -16,7 +16,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/pro/bugrim/pane.fxml"));
 
         Scene scene = new Scene(root);
-        stage.setTitle("Image database");
+        stage.setTitle("База данных картинок");
         stage.setScene(scene);
         stage.show();
     }
